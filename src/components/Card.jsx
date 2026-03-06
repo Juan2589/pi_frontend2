@@ -8,6 +8,7 @@ export default function Card({
   onBuy,
   onRent,
   placeholder = false,
+  onAdd,
 }) {
   if (placeholder) {
     return (
@@ -17,7 +18,7 @@ export default function Card({
           <div>TÍTULO</div>
           <button
             className="placeholder-btn"
-            onClick={() => alert('Agrega un libro al inventario')}
+            onClick={onAdd}
           >
             + Añadir libro
           </button>
