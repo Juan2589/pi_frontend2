@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import './LibraryPage.css';
 import Card from '../components/Card.jsx';
+import Navbar from '../components/Navbar.jsx';
+import Footer from '../components/Footer.jsx';
 
 const initialBooks = [
-  { id: 1, title: 'React para principiantes', price: 10, status: 'available', author: 'Juan Pérez', category: 'Tecnología', quantity: 5 },
-  { id: 2, title: 'Node.js avanzado', price: 15, status: 'available', author: 'María García', category: 'Backend', quantity: 3 },
-  { id: 3, title: 'Python para todos', price: 12, status: 'available', author: 'Carlos López', category: 'Programación', quantity: 8 },
+  { id: 1, title: 'React para principiantes', price: 45000, status: 'available', author: 'Juan Pérez', category: 'Tecnología', quantity: 5, description: 'Aprende React desde cero con ejemplos prácticos' },
+  { id: 2, title: 'Node.js avanzado', price: 65000, status: 'available', author: 'María García', category: 'Backend', quantity: 3, description: 'Domina Node.js con técnicas avanzadas' },
+  { id: 3, title: 'Python para todos', price: 55000, status: 'available', author: 'Carlos López', category: 'Programación', quantity: 8, description: 'Introducción completa a Python' },
 ];
 
 export default function LibraryPage() {
@@ -20,8 +22,28 @@ export default function LibraryPage() {
 
   const buyBook = (id) => {
     setBooks((prev) =>
-      prev.map((b) => (b.id === id ? { ...b, status: 'sold' } : b))
+      prev.map((b) => {
+        if (b.id === id) {
+          const newQuantity = b.quantity - 1;
+          return {
+            ...b,
+            quantity: newQuantity,
+            status: newQuantity === 0 ? 'sold' : 'available'
+          };
+        }
+        return b;
+      })
     );
+    setSuccessMessage('¡Libro comprado exitosamente!');
+    setTimeout(() => setSuccessMessage(''), 3000);
+  };
+
+  const rentBook = (id) => {
+    setBooks((prev) =>
+      prev.map((b) => (b.id === id ? { ...b, status: 'rented' } : b))
+    );
+    setSuccessMessage('¡Libro rentado exitosamente!');
+    setTimeout(() => setSuccessMessage(''), 3000);
   };
 
   const deleteBook = (id) => {
@@ -36,7 +58,7 @@ export default function LibraryPage() {
         id,
         title: 'Nuevo Libro',
         author: 'Autor Desconocido',
-        price: 5.00,
+        price: 30000,
         category: 'General',
         quantity: 1,
         description: 'Libro agregado por defecto',
@@ -77,10 +99,12 @@ export default function LibraryPage() {
   };
 
   return (
-    <div className="layout">
+    <div className="page-wrapper">
+      <Navbar />
+      <div className="layout">
       <aside className="sidebar">
         <div className="sidebar-header">
-          <h2>📚 Vender un libro</h2>
+          <h2>Vender un libro</h2>
           <p className="subtitle">Agrega tus libros al inventario</p>
         </div>
         
@@ -141,14 +165,14 @@ export default function LibraryPage() {
           </div>
           
           <div className="form-group">
-            <label htmlFor="price">Precio ($) *</label>
+            <label htmlFor="price">Precio (COP) *</label>
             <input
               id="price"
               type="number"
-              step="0.01"
+              step="1000"
               value={newPrice}
               onChange={(e) => setNewPrice(e.target.value)}
-              placeholder="0.00"
+              placeholder="30000"
               className="form-input"
             />
           </div>
@@ -165,11 +189,11 @@ export default function LibraryPage() {
             ></textarea>
           </div>
           
-          <button type="submit" className="submit-btn">✓ Agregar Libro</button>
+          <button type="submit" className="submit-btn">Agregar Libro</button>
         </form>
 
         <div className="book-list">
-          <h3>📚 Libros en Inventario</h3>
+          <h3>Libros en Inventario</h3>
           {books.length === 0 ? (
             <p>No hay libros en el inventario.</p>
           ) : (
@@ -177,13 +201,13 @@ export default function LibraryPage() {
               {books.map((book) => (
                 <li key={book.id} className="book-item">
                   <div className="book-info">
-                    <strong>{book.title}</strong> - ${book.price.toFixed(2)} ({book.status})
+                    <strong>{book.title}</strong> - ${book.price.toLocaleString('es-CO')} ({book.status})
                   </div>
                   <button
                     onClick={() => deleteBook(book.id)}
                     className="delete-btn"
                   >
-                    🗑️ Eliminar
+                    Eliminar
                   </button>
                 </li>
               ))}
@@ -193,25 +217,35 @@ export default function LibraryPage() {
       </aside>
 
       <main className="main-content">
+        <div className="page-header">
+          <h1>Catálogo de Libros Virtuales</h1>
+          <p>Explora nuestra colección de libros digitales. Compra o renta tus favoritos.</p>
+        </div>
+        
         <div className="cards-container">
-          {books.map((book) => (
+          {books.length > 0 && books.map((book) => (
             <Card
               key={book.id}
               title={book.title}
+              author={book.author}
+              category={book.category}
               price={book.price}
               status={book.status}
+              quantity={book.quantity}
+              description={book.description}
               onBuy={() => buyBook(book.id)}
               onRent={() => rentBook(book.id)}
             />
           ))}
           
-          {books.length < 3 && Array.from({ length: 3 - books.length }).map((_, idx) => (
+          {books.length === 0 && Array.from({ length: 3 }).map((_, idx) => (
             <Card key={`ph${idx}`} placeholder onAdd={addDefaultBook} />
           ))}
         </div>
-
-        <footer className="footer">COMPONENTE UNO</footer>
       </main>
+    </div>
+    
+    <Footer />
     </div>
   );
 }

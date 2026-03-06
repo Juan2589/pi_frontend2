@@ -1,7 +1,6 @@
-/* Navbar Container */
 .navbar {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   position: fixed;
   top: 0;
   width: 100%;
@@ -10,20 +9,22 @@
 }
 
 .navbar-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 0.75rem 2rem;
 }
 
-/* Logo */
 .navbar-logo {
   color: #fff;
   text-decoration: none;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   transition: transform 0.3s ease;
 }
 
@@ -36,27 +37,31 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-size: 1.3rem;
 }
 
-/* Menu */
 .navbar-menu {
   display: flex;
+  align-items: center;
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .navbar-link {
   color: #fff;
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 500;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.2rem;
   border-radius: 25px;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
 }
 
 .navbar-link::before {
@@ -68,6 +73,7 @@
   height: 100%;
   background: rgba(255, 255, 255, 0.2);
   transition: left 0.3s ease;
+  z-index: -1;
 }
 
 .navbar-link:hover::before {
@@ -80,23 +86,65 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Hamburger Menu */
+.admin-link {
+  background: rgba(255, 215, 0, 0.2);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.admin-link:hover {
+  background: rgba(255, 215, 0, 0.3);
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+.navbar-divider {
+  width: 1px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.3);
+  margin: 0 0.5rem;
+}
+
+.navbar-btn {
+  background: linear-gradient(135deg, #ffd700 0%, #ffb700 100%);
+  color: #333;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  box-shadow: 0 2px 8px rgba(255, 183, 0, 0.3);
+}
+
+.navbar-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 183, 0, 0.4);
+}
+
 .hamburger {
   display: none;
   flex-direction: column;
   cursor: pointer;
-  gap: 4px;
+  gap: 5px;
+  padding: 5px;
 }
 
 .bar {
-  width: 25px;
+  width: 28px;
   height: 3px;
   background-color: #fff;
+  border-radius: 3px;
   transition: all 0.3s ease;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 968px) {
+  .navbar-container {
+    padding: 0.75rem 1.5rem;
+  }
+
   .hamburger {
     display: flex;
   }
@@ -108,29 +156,44 @@
     width: 100%;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     flex-direction: column;
+    align-items: stretch;
     gap: 0;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   }
 
   .navbar-menu.active {
-    max-height: 300px;
+    max-height: 500px;
+    padding: 1rem 0;
   }
 
   .navbar-link {
     padding: 1rem 2rem;
     border-radius: 0;
-    text-align: center;
+    text-align: left;
+    margin: 0;
   }
 
   .navbar-link:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
+    transform: none;
   }
 
-  /* Hamburger Animation */
+  .navbar-divider {
+    height: 1px;
+    width: 80%;
+    margin: 0.5rem auto;
+  }
+
+  .navbar-btn {
+    margin: 0.5rem 2rem;
+    justify-content: center;
+  }
+
   .hamburger .bar:nth-child(1).active {
-    transform: rotate(-45deg) translate(-5px, 6px);
+    transform: rotate(-45deg) translate(-8px, 6px);
   }
 
   .hamburger .bar:nth-child(2).active {
@@ -138,11 +201,21 @@
   }
 
   .hamburger .bar:nth-child(3).active {
-    transform: rotate(45deg) translate(-5px, -6px);
+    transform: rotate(45deg) translate(-8px, -6px);
   }
 }
 
-/* Smooth Scrolling */
+@media (max-width: 480px) {
+  .logo-text {
+    font-size: 1.1rem;
+  }
+
+  .navbar-container {
+    padding: 0.75rem 1rem;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
+

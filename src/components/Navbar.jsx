@@ -1,31 +1,47 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(true);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleLinkClick = (section) => {
+    setIsOpen(false);
+    console.log(`Navegando a: ${section}`);
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <Link to="/" className="navbar-logo" onClick={() => setIsOpen(false)}>
-          <span className="logo-text">MyApp</span>
-        </Link>
+        <a href="#" className="navbar-logo" onClick={() => handleLinkClick('inicio')}>
+          <span className="logo-text">Biblioteca Virtual</span>
+        </a>
+        
         <div className={`navbar-menu ${isOpen ? 'active' : ''}`}>
-          <Link to="/" className="navbar-link" onClick={() => setIsOpen(false)}>
-            Home
-          </Link>
-          <Link to="/library" className="navbar-link" onClick={() => setIsOpen(false)}>
-            Library
-          </Link>
-          <Link to="/about" className="navbar-link" onClick={() => setIsOpen(false)}>
-            About
-          </Link>
+          <a href="#" className="navbar-link" onClick={() => handleLinkClick('inicio')}>
+            Inicio
+          </a>
+          <a href="#" className="navbar-link" onClick={() => handleLinkClick('biblioteca')}>
+            Biblioteca
+          </a>
+          <a href="#" className="navbar-link" onClick={() => handleLinkClick('acerca')}>
+            Acerca de
+          </a>
+          {isAdmin && (
+            <a href="#" className="navbar-link admin-link" onClick={() => handleLinkClick('admin')}>
+              Admin
+            </a>
+          )}
+          <div className="navbar-divider"></div>
+          <button className="navbar-btn login-btn" onClick={() => handleLinkClick('login')}>
+            Acceder
+          </button>
         </div>
+        
         <div className="hamburger" onClick={toggleMenu}>
           <span className={`bar ${isOpen ? 'active' : ''}`}></span>
           <span className={`bar ${isOpen ? 'active' : ''}`}></span>
