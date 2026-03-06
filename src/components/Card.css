@@ -1,6 +1,6 @@
 .card {
-  background: #fff;
-  color: #222;
+  background: #161b22;
+  color: #c9d1d9;
   border-radius: 12px;
   width: 100%;
   max-width: 100%;
@@ -9,7 +9,7 @@
   flex-direction: column;
   overflow: hidden;
   transition: all 0.3s ease;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #30363d;
 }
 
 .card:hover {
@@ -24,18 +24,18 @@
 }
 
 .card.placeholder {
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  border: 2px dashed #667eea;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 2px dashed #00d4ff;
   box-shadow: none;
 }
 
 .card.placeholder:hover {
   transform: translateY(-3px);
-  border-color: #764ba2;
+  border-color: #0099cc;
 }
 
 .card-cover {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 100%);
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -46,7 +46,7 @@
 }
 
 .placeholder-cover {
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   min-height: 180px;
 }
 
@@ -61,7 +61,7 @@
 .placeholder-icon {
   font-size: 5rem;
   opacity: 0.6;
-  color: #667eea;
+  color: #00d4ff;
   font-weight: 300;
 }
 
@@ -69,8 +69,8 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  background: rgba(255, 255, 255, 0.9);
-  color: #667eea;
+  background: rgba(22, 27, 34, 0.9);
+  color: #00d4ff;
   padding: 0.3rem 0.8rem;
   border-radius: 20px;
   font-size: 0.75rem;
